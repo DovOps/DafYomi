@@ -38,7 +38,7 @@ if(location.href.indexOf("DafYomi_Page.aspx")>-1){
 
 // If we are on the homepage, we inject a button to launch the 4 amudim
 if(location.href.indexOf("dafYomi.aspx")>-1){
-    var link=$('#oPageLinksBox > a').first() ;
+    var link=$('#oPageLinksBox > a').last() ;
     var url=$(link).href;
-    $(link).append("  <a href='#'  id='OpenDapim' style='color:red;'>[x4]</a> ");
+    $(link).append("<br><button class='clsButton' href='#'  id='OpenDapim' >עמוד+4</button> ");
  } 
