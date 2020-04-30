@@ -1,50 +1,44 @@
+// The purpose of this method is to maximize the PDF of the page, 
+// and scroll it towards the top of the screen
 function maximizeDafScreen(){
-    console.log(document.getElementById("hdnMale"));
+    
+    // First set as 'unmaximized'
     $('#hdnMale').val(0);
     $('#cmdMaleh').click();
-
-   // fChangeScreen();
     
+    // Refresh the PDF so it fits the full width
     var src=$('#ContentPlaceHolderMain_ifrPage').attr('src');
-    
     src=src.replace('#','?#')+"&view=FitV";
     
+    // Scroll the PDF to the top of the browser
     $('#ContentPlaceHolderMain_ifrPage').attr('src',src);
     $(window).scrollTop(250);
- 
 } 
 
 
+// This subscribes to the newly added 'OpenDapim' link to open all 4 pages
 $("#OpenDapim").live("click", function(){
-    console.log("***** *OPEN DAFIM****");
+    console.log("Open the 4 Amudim");
     var link=$('#oPageLinksBox > a').first() ;
     var url=$(link).attr("href");
     var prefix=url.substring(0,url.lastIndexOf('=')+1);
     var page=parseInt(url.substring(url.lastIndexOf('=')+1));
-    console.log(prefix);
-    console.log(page);
-    console.log(page+1);
-    console.log(page-1);
     window.open(prefix+(page+2),"_blank");
     window.open(prefix+(page+1),"_blank");
     window.open(prefix+page,"_blank");
     window.open(prefix+(page-1),"_blank");
-
 });
 
 
-
-console.log("My Page - EXTENSION EXECUTING");
+// If we are opening up a Daf- we maximize and scroll it by default
 if(location.href.indexOf("DafYomi_Page.aspx")>-1){
-    console.log("MAximize Daf");
+    console.log("Maximize Daf");
      maximizeDafScreen();
-  //  setTimeout(maximizeDafScreen,1500);;
 }
+
+// If we are on the homepage, we inject a button to launch the 4 amudim
 if(location.href.indexOf("dafYomi.aspx")>-1){
-
-
-
     var link=$('#oPageLinksBox > a').first() ;
     var url=$(link).href;
-    $(link).prepend("<a href='#'  id='OpenDapim' style='color:red;'>**SETUP TODAYS DAF**</a><hr/>");
+    $(link).append("  <a href='#'  id='OpenDapim' style='color:red;'>[x4]</a> ");
  } 
