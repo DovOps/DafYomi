@@ -1,6 +1,6 @@
 {
   "name": "Daf Yomi Helper",
-  "version": "1.0",
+  "version": "1.1",
   "manifest_version": 2,
   "description": "Daf Helper Plugin",
   "icons": { "16": "DafYomiLogo.png",
