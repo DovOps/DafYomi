@@ -15,6 +15,9 @@ function maximizeDafScreen(){
     $(window).scrollTop(250);
 } 
 
+function updateTitle(){
+    document.title=$("#ContentPlaceHolderMain_hdrMassechet").text();
+}
 
 // This subscribes to the newly added 'OpenDapim' link to open all 4 pages
 $("#OpenDapim").live("click", function(){
@@ -34,6 +37,7 @@ $("#OpenDapim").live("click", function(){
 if(location.href.indexOf("DafYomi_Page.aspx")>-1){
     console.log("Maximize Daf");
      maximizeDafScreen();
+     updateTitle();
 }
 
 // If we are on the homepage, we inject a button to launch the 4 amudim
