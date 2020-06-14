@@ -17,8 +17,36 @@ function maximizeDafScreen(){
 
 function updateTitle(){
     document.title=$("#ContentPlaceHolderMain_hdrMassechet").text();
+    getLinks();
 }
 
+function getLinks(){
+    var daf=$("#ContentPlaceHolderMain_hdrMassechet").text();
+    console.log("https://www.sefaria.org.il/api/links/"+daf);
+    $.get("https://www.sefaria.org.il/api/links/"+daf).done(function(data){
+       data=data.filter(function(x){
+           return x.type=="ein mishpat / ner mitsvah";
+        });
+    var form= $("#form1");
+    var html="<div id='sidebar' ><div id='sidebar-btn'><!--span></span><span></span><span></span--></div><ul>";
+    html+="<li style='color:red;font-weight:bold'><a target='_sefaria' href='http://www.sefaria.org.il/"+daf+"?lang=he&with=all&lang2=he'>"+daf+"</a></li>";
+
+  $.each(data,function(i,item){
+    console.log(item.ref);
+    console.log(item.sourceHeRef);
+    console.log("http://www.sefaria.org.il/"+item.sourceHeRef)
+    html+="<li><a target='_sefaria' href='http://www.sefaria.org.il/"+item.sourceHeRef+"?lang=he&with=all&lang2=he'>"+item.sourceHeRef+"</a></li>";
+  });
+  html+="</ul></div>";
+  form.append(html);
+  $(document).ready(function() {
+    $('#sidebar-btn').on('click', function() {
+      $('#sidebar').toggleClass('visible');
+    });
+  });
+
+});
+}
 // This subscribes to the newly added 'OpenDapim' link to open all 4 pages
 $("#OpenDapim").live("click", function(){
     console.log("Open the 4 Amudim");
