@@ -28,7 +28,7 @@ function getLinks(){
            return x.type=="ein mishpat / ner mitsvah";
         });
     var form= $("#form1");
-    var html="<div id='sidebar' ><div id='sidebar-btn'><!--span></span><span></span><span></span--></div><ul>";
+    var html="<div id='sidebar-btn2'></div><div id='sidebar' ><div id='sidebar-btn'><!--span></span><span></span><span></span--></div><ul>";
     html+="<li style='color:red;font-weight:bold'><a target='_sefaria' href='http://www.sefaria.org.il/"+daf+"?lang=he&with=all&lang2=he'>"+daf+"</a></li>";
 
   $.each(data,function(i,item){
@@ -40,7 +40,7 @@ function getLinks(){
   html+="</ul></div>";
   form.append(html);
   $(document).ready(function() {
-    $('#sidebar-btn').on('click', function() {
+    $('#sidebar-btn,#sidebar-btn2').on('click', function() {
       $('#sidebar').toggleClass('visible');
     });
   });
