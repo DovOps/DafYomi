@@ -1,18 +1,20 @@
 {
   "name": "Daf Yomi Helper",
-  "version": "1.5",
+  "version": "1.6",
   "manifest_version": 2,
   "description": "Daf Helper Plugin",
-  "icons": { "16": "DafYomiLogo.png",
-    "48": "DafYomiLogo.png",
-   "128": "DafYomiLogo.png" },
-
-   "page_action":
-   {
-    "default_icon": {"16": "DafYomiLogo.png",
-        "48": "DafYomiLogo.png",
-       "128": "DafYomiLogo.png" }
-   },
+  "icons": {
+    "16": "DafYomi_16x16.png",
+    "48": "DafYomi_48x48.png",
+    "128": "DafYomi_128x128.png"
+  },
+  "page_action": {
+    "default_icon": {
+      "16": "DafYomi_16x16.png",
+      "48": "DafYomi_48x48.png",
+      "128": "DafYomi_128x128.png"
+    }
+  },
   "content_scripts": [
     {
       "matches": [
@@ -20,7 +22,8 @@
         "*://*.daf-yomi.com/*"
       ],
       "js": [
-        "jquery-1.8.2.min.js","contentScript.js"
+        "jquery-1.8.2.min.js",
+        "contentScript.js"
       ],
       "css": [
         "daf.css"
