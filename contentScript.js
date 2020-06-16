@@ -27,21 +27,46 @@ function getLinks(){
        data=data.filter(function(x){
            return x.type=="ein mishpat / ner mitsvah";
         });
-    var form= $("#form1");
-    var html="<div id='sidebar-btn2'></div><div id='sidebar' ><div id='sidebar-btn'><!--span></span><span></span><span></span--></div><ul>";
-    html+="<li style='color:red;font-weight:bold'><a target='_sefaria' href='http://www.sefaria.org.il/"+daf+"?lang=he&with=all&lang2=he'>"+daf+"</a></li>";
+    var html="<div id='sidebar-btn2'></div><div id='sidebar' ><div class='logowrap'><div id='sidebar-btn'></div></div><ul>";
+    html+="<li style='color:red;font-weight:bold'><a class='_sefaria' data-link='http://www.sefaria.org.il/"+daf+"?lang=he&with=all&lang2=he'>"+daf+"</a></li>";
 
   $.each(data,function(i,item){
     console.log(item.ref);
     console.log(item.sourceHeRef);
     console.log("http://www.sefaria.org.il/"+item.sourceHeRef)
-    html+="<li><a target='_sefaria' href='http://www.sefaria.org.il/"+item.sourceHeRef+"?lang=he&with=all&lang2=he'>"+item.sourceHeRef+"</a></li>";
+    html+="<li><a class='_sefaria' data-link='http://www.sefaria.org.il/"+item.sourceHeRef+"?lang=he&lang2=he'>"+item.sourceHeRef+"</a></li>";
   });
   html+="</ul></div>";
-  form.append(html);
+  html+="<div id='sidebar-modal-viewer'><div class='modalbar'><a id='modal-sidebar-new-win'>New Window</a> | <a id='modal-sidebar-toggle'>Close</a></div><iframe id='sidebar-iframe' src='about:blank'></iframe><div class='loading-mask'>Loading Page...</div></div>";
+  $("body").append(html);
   $(document).ready(function() {
-    $('#sidebar-btn,#sidebar-btn2').on('click', function() {
-      $('#sidebar').toggleClass('visible');
+    $("#sidebar-iframe").on("load",function(){
+      $(".loading-mask").hide();
+      $("#sidebar-iframe").show();
+    });
+    $('#sidebar-btn2').on('click', function() {
+      $('#sidebar').toggleClass('visible',true);
+    });
+    $('#sidebar-btn').on('click', function() {
+      $('#sidebar').toggleClass('visible', false);
+      $('#sidebar-modal-viewer').toggleClass('visible',false);
+      $(".loading-mask").hide();
+    });
+
+    $('#modal-sidebar-toggle,.modalbar').on('click', function() {
+      $('#sidebar-modal-viewer').toggleClass('visible',false);
+    });
+    $('#modal-sidebar-new-win').on('click', function() {
+      $('#sidebar-modal-viewer').toggleClass('visible',false);
+      window.open($("#sidebar-iframe").attr("src"));
+    });
+    $('._sefaria').on('click',function(e){
+      $(".loading-mask").show();
+      $("#sidebar-iframe").hide();
+      $('#sidebar-iframe').attr('src',$(e.target).data('link'));
+      $('#sidebar-modal-viewer').toggleClass('visible',true);
+      $("#sidebar ul li").toggleClass('active',false);
+      $(e.target).parent().toggleClass('active',true);
     });
   });
 
